@@ -16,9 +16,7 @@ MQTT - A simple data centric communication protocol designed for IoT devices.  M
     * Continuous session awareness
     * and more...
 
-Vue.js - A fronted framework that is simple to use but ahs powerful results.  
-
-Vuetify - A material design component framework for Vue.js
+Vue.js - A fronted framework that is simple to use but ahs powerful results
 
 eslint-plugin-vue - The official ESLint pluging for Vue.js
 
