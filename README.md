@@ -20,11 +20,15 @@ The dashboard is currently a very simple Vue.js application at this time.  It on
 
 [eslint-plugin-vue](https://eslint.vuejs.org/) - The official ESLint pluging for Vue.js
 
-[mqtt-connection](https://github.com/mqttjs/mqtt-connection) - A barebone connection object for MQTT
+[vue-mqtt](https://github.com/nik-zp/vue-mqtt) - A library for using MQTT in Vue.js
 
 [Docker](https://www.docker.com/) - A containerization system making it easy to create, deploy, and run applications
 
 # Assumptions
+
+# Improvements
+
+* Look closer at the vue-mqtt library.  The message payload seems to be required to be a string.  Being able to use binary data would reduce the cost of communication further.
 
 # Running the System
 

@@ -8,7 +8,7 @@
         <th>Latitude</th>
         <th>Longitude</th>
       </tr>
-      <tr v-for="drone in drones" :key=drone.id>
+      <tr v-for="drone in drones" :key=drone.id v-bind:style="{background: drone.color}">
         <td>{{ drone.id }}</td>
         <td>{{ drone.latitude }}</td>
         <td>{{ drone.longitude }}</td>
@@ -22,25 +22,45 @@
   name: 'Dashboard',
   data: function() {
     return {
-      drones: [
-        { id: 1, latitude: 44.482948, longitude: -103.850380 },
-        { id: 2, latitude: 44.080544, longitude: -103.231018 },
-      ],
+      drones: []
     };
   },
   methods: {
     publishLocation () {
-      this.$mqtt.publish('VueMqtt/publishLocation', '4,44.482948,-103.850380')
-    }
+      this.$mqtt.publish('VueMqtt/publishLocation', '3,44.482948,-103.850380')
+    },
+
   },
   mqtt: {
     'VueMqtt/publishLocation' (data) {
 
       // Split the message on the comma delimiters
-      var droneUpdate = String.fromCharCode.apply(null, data).split(",")
-      // Add/Update the device in the list
-      // TODO Check how far the device moved
-      this.drones.push({id: droneUpdate[0], latitude: droneUpdate[1], longitude: droneUpdate[2]})
+      var droneUpdate = String.fromCharCode.apply(null, data).split(",");
+
+      // TODO Use a hashtable
+      // Loop through and check if the drone already exists
+      var i;
+      for(i = 0; i < this.drones.length; i++) {
+        
+        // Update the drone if it's already in the list
+        if(this.drones[i].id == droneUpdate[0]) {
+          // Check how far the device moved and color the row if it's not
+          var distanceInM = 0.5;
+          
+          if(distanceInM < 1) {
+            this.drones[i].color = "Yellow";
+          }
+
+          this.drones[i].latitude = droneUpdate[1];
+          this.drones[i].longitude = droneUpdate[2];
+          break;
+        }
+      }
+
+      // Since we didn't find the drone, add it now
+      if(i == this.drones.length) {
+        this.drones.push({id: droneUpdate[0], latitude: droneUpdate[1], longitude: droneUpdate[2], color: "White"});
+      }
     },
   }
 }
