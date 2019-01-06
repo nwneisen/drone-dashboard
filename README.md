@@ -37,16 +37,6 @@ A Dockerfile is used to make the project easy to run on different devices.  To u
 
 This will get the project running and allow it to be viewed on a local browser.  Additional commands can be manually ran inside of the docker container if needed.
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
 ### Compiles and minifies for production
 ```
 yarn run build
