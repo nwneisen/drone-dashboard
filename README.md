@@ -30,10 +30,16 @@ Docker - A containerization system making it easy to create, deploy, and run app
 
 # Running the System
 
-A Dockerfile is used to make the project easy to run on different devices.  To use docker you must build the image and then run the image with a few arguments.
+A Dockerfile is used to make the project easy to run on different devices.  To use docker you must first build the image.
 
-`docker build -t drone-dashboard .`
-`docker run -it -v ${PWD}:/code -p 8080:8080 drone-dashboard`
+```
+docker build -t drone-dashboard .
+
+Then run the image with a few arguments
+```
+```
+docker run -it -v ${PWD}:/code -p 8080:8080 drone-dashboard
+```
 
 This will get the project running and allow it to be viewed on a local browser.  Additional commands can be manually ran inside of the docker container if needed.
 

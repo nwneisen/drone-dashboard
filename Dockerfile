@@ -8,8 +8,6 @@ WORKDIR /code
 # copy both 'package.json' and 'package-lock.json' (if available)
 COPY package.json yarn.lock ./
 
-RUN yarn install
-
 EXPOSE 8080
 
-CMD [ "yarn", "serve" ]
+CMD [ "bash", "-c", "yarn install && yarn serve" ]
