@@ -8,7 +8,7 @@ The dashboard is currently a very simple Vue.js application at this time.  It on
 
 # Technologies
 
-MQTT - A simple data centric communication protocol designed for IoT devices.  MQTT offers a number of benefits over HTTP.
+[MQTT](http://mqtt.org/) - A simple data centric communication protocol designed for IoT devices.  MQTT offers a number of benefits over HTTP.
     * Small message size.  Binary format with a 2 Byte header
     * SSL/TLS security
     * Expect and account for frequent network issues
@@ -16,13 +16,13 @@ MQTT - A simple data centric communication protocol designed for IoT devices.  M
     * Continuous session awareness
     * and more...
 
-Vue.js - A fronted framework that is simple to use but ahs powerful results
+[Vue.js](https://vuejs.org/) - A fronted framework that is simple to use but ahs powerful results
 
-eslint-plugin-vue - The official ESLint pluging for Vue.js
+[eslint-plugin-vue](https://eslint.vuejs.org/) - The official ESLint pluging for Vue.js
 
-Vue-Mqtt - A library for connecting to a MQTT websocket in Vue.js
+[mqtt-connection](https://github.com/mqttjs/mqtt-connection) - A barebone connection object for MQTT
 
-Docker - A containerization system making it easy to create, deploy, and run applications
+[Docker](https://www.docker.com/) - A containerization system making it easy to create, deploy, and run applications
 
 # Assumptions
 
@@ -32,9 +32,9 @@ A Dockerfile is used to make the project easy to run on different devices.  To u
 
 ```
 docker build -t drone-dashboard .
+```
 
 Then run the image with a few arguments
-```
 ```
 docker run -it -v ${PWD}:/code -p 8080:8080 drone-dashboard
 ```
