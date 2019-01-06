@@ -11,6 +11,9 @@ export default {
   name: 'app',
   components: {
     Dashboard
+  },
+  mounted () {
+    this.$mqtt.subscribe('VueMqtt/#')
   }
 }
 </script>
