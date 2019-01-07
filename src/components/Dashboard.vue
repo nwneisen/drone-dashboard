@@ -5,11 +5,13 @@
     <table>
       <tr>
         <th>Drone</th>
+        <th>Speed (Km/hr)</th>
         <th>Latitude</th>
         <th>Longitude</th>
       </tr>
       <tr v-for="drone in drones" :key=drone.id v-bind:style="{background: drone.color}">
         <td>{{ drone.id }}</td>
+        <td>{{ drone.speed }}</td>
         <td>{{ drone.latitude }}</td>
         <td>{{ drone.longitude }}</td>
       </tr>
@@ -26,15 +28,35 @@
     };
   },
   methods: {
-    publishLocation () {
+    publishLocation() {
       this.$mqtt.publish('VueMqtt/publishLocation', '3,44.482948,-103.850380')
     },
+    getSpeed(distanceInKm) {
+      const secondsInAnHour = 3600;
+      return distanceInKm*secondsInAnHour;
+    },
+    getRowColor(idleSeconds) {
+      const maxIdleSeconds = 10;
+      if(idleSeconds >= maxIdleSeconds) {
+        // Color the row yellow if the drone hasn't moved
+        return "Yellow";
+      }
 
+      return "White";
+    },
+    getIdleSeconds(distanceInKm, idleSeconds) {
+      const idleDistanceKm = 0.001;
+      if(distanceInKm < idleDistanceKm) {
+        return idleSeconds+1;
+      }
+
+      return 0;
+    }
   },
   mqtt: {
     'VueMqtt/publishLocation' (data) {
 
-      var droneUpdate = String.fromCharCode.apply(null, data).split(",");
+      var droneMessage = String.fromCharCode.apply(null, data).split(",");
 
       // TODO Use a hashtable
       // Check if the drone is already being displayed
@@ -42,25 +64,32 @@
       for(i = 0; i < this.drones.length; i++) {
         
         // Update the drone if it's already in the list
-        if(this.drones[i].id == droneUpdate[0]) {
+        if(this.drones[i].id == droneMessage[0]) {
 
-          // Check how far the drone moving and color the row if it's not
-          var distanceInM = this.$getDistanceBetween({latitude: this.drones[i].latitude, longitude: this.drones[i].longitude}, 
-                                                     {latitude: droneUpdate[1], longitude: droneUpdate[2]});          
-          console.log(distanceInM);
-          if(distanceInM < 1) {
-            this.drones[i].color = "Yellow";
-          }
+          // Check how far the drone has moved
+          var distanceInKm = this.$getDistanceBetween({latitude: this.drones[i].latitude, longitude: this.drones[i].longitude}, 
+                                                      {latitude: droneMessage[1], longitude: droneMessage[2]});   
+          
 
-          this.drones[i].latitude = droneUpdate[1];
-          this.drones[i].longitude = droneUpdate[2];
+          // Update the drone's information
+          this.drones[i].latitude = droneMessage[1];
+          this.drones[i].longitude = droneMessage[2];
+          this.drones[i].speed = this.getSpeed(distanceInKm);
+          // We need to update the idle seconds before getting the row color
+          this.drones[i].idleSeconds = this.getIdleSeconds(distanceInKm, this.drones[i].idleSeconds);
+          this.drones[i].color = this.getRowColor(this.drones[i].idleSeconds);
           break;
         }
       }
 
       // If we didn't find the drone, add it now
       if(i == this.drones.length) {
-        this.drones.push({id: droneUpdate[0], latitude: droneUpdate[1], longitude: droneUpdate[2], color: "White"});
+        this.drones.push({id: droneMessage[0], 
+                          latitude: droneMessage[1], 
+                          longitude: droneMessage[2], 
+                          speed: 0, 
+                          color: "White",
+                          idleSeconds: 0});
       }
     },
   }
