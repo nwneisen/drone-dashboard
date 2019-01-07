@@ -27,7 +27,7 @@
     };
   },
   methods: {
-    getSpeed(distanceInKm) {
+    getSpeedInKmPerHour(distanceInKm) {
       const secondsInAnHour = 3600;
       return distanceInKm*secondsInAnHour;
     },
@@ -51,6 +51,7 @@
   },
   mqtt: {
     'VueMqtt/publishLocation' (data) {
+      
 
       var droneMessage = String.fromCharCode.apply(null, data).split(",");
 
@@ -70,7 +71,7 @@
           // Update the drone's information
           this.drones[i].latitude = droneMessage[1];
           this.drones[i].longitude = droneMessage[2];
-          this.drones[i].speed = this.getSpeed(distanceInKm);
+          this.drones[i].speed = this.getSpgetSpeedInKmPerHoureed(distanceInKm);
           // We need to update the idle seconds before getting the row color
           this.drones[i].idleSeconds = this.getIdleSeconds(distanceInKm, this.drones[i].idleSeconds);
           this.drones[i].color = this.getRowColor(this.drones[i].idleSeconds);

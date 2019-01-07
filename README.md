@@ -28,7 +28,7 @@ The dashboard is currently a very simple Vue.js application at this time.  It on
 
 # Assumptions
 
-The average drone speed is 48–80 Km/hr.  Toy and racing drones are available outside of this range but for commercial applications they will probably not be used.  If we figure for the slowest speed, we find that we need .75 seconds for the drone to move 1 meter.  We also know that we want to be able to tell if the drone has been idle for 10 seconds.  This gives us a range that out update frequency should fall between.  I chose to go with an update freqeuncy of 1 second as this gives us some buffer space from the lower end, makes the numbers nicer to work with, and will make the dashboard feel responsive for the user.
+The average drone speed is 48–80 Km/hr.  Toy and racing drones are available outside of this range but for commercial applications they will probably not be used.  If we figure for the slowest speed, we find that we need .075 seconds for the drone to move 1 meter.  We also know that we want to be able to tell if the drone has been idle for 10 seconds.  This gives us a range that out update frequency should fall between.  I chose to go with an update freqeuncy of 1 second as this gives us buffer space from the lower end, makes the numbers nicer to work with, and will make the dashboard feel responsive for the user.
 
 # Improvements
 
@@ -36,9 +36,11 @@ The average drone speed is 48–80 Km/hr.  Toy and racing drones are available o
 * Better type checking throughout the system
 * Setup issues and branches to better manage the project.
 * Add more intelligence to the simulator to get more realistic geo-location and update frequency values
-* An improved GUI
+* An improved GUI with tests
 * Learn more about the requirements of the system to reduce assumptions
 * Enable and verify security settings
+* Create a script to contain all of the docker commands
+* Improve testing to cover MQTT with unit tests
 
 # Running the System
 
@@ -68,5 +70,5 @@ This will get the project running in developer mode and allow it to be viewed on
 
 ### Run the tests
 ```
-docker run -it -v ${PWD}:/code -p 8080:8080 drone-dashboard yarn run test
+docker run -it -v ${PWD}:/code drone-dashboard yarn test:unit
 ```
