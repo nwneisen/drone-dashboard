@@ -34,19 +34,20 @@
   mqtt: {
     'VueMqtt/publishLocation' (data) {
 
-      // Split the message on the comma delimiters
       var droneUpdate = String.fromCharCode.apply(null, data).split(",");
 
       // TODO Use a hashtable
-      // Loop through and check if the drone already exists
+      // Check if the drone is already being displayed
       var i;
       for(i = 0; i < this.drones.length; i++) {
         
         // Update the drone if it's already in the list
         if(this.drones[i].id == droneUpdate[0]) {
-          // Check how far the device moved and color the row if it's not
-          var distanceInM = 0.5;
-          
+
+          // Check how far the drone moving and color the row if it's not
+          var distanceInM = this.$getDistanceBetween({latitude: this.drones[i].latitude, longitude: this.drones[i].longitude}, 
+                                                     {latitude: droneUpdate[1], longitude: droneUpdate[2]});          
+          console.log(distanceInM);
           if(distanceInM < 1) {
             this.drones[i].color = "Yellow";
           }
@@ -57,7 +58,7 @@
         }
       }
 
-      // Since we didn't find the drone, add it now
+      // If we didn't find the drone, add it now
       if(i == this.drones.length) {
         this.drones.push({id: droneUpdate[0], latitude: droneUpdate[1], longitude: droneUpdate[2], color: "White"});
       }

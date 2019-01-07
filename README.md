@@ -24,6 +24,8 @@ The dashboard is currently a very simple Vue.js application at this time.  It on
 
 [Docker](https://www.docker.com/) - A containerization system making it easy to create, deploy, and run applications
 
+[geolocation-distance-between](https://github.com/joelcolucci/geolocation-distance-between) - ES6 module to calculate distance between coordinates
+
 # Assumptions
 
 # Improvements

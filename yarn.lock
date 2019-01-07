@@ -3577,6 +3577,11 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
+geolocation-distance-between@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/geolocation-distance-between/-/geolocation-distance-between-0.1.0.tgz#2bb17af1c4a42af01fbaab2cbe7856aa65a1e71b"
+  integrity sha512-gwPRtU+bzrZvh7LDBNkyVi9/jxW5kbuF1MkAmt+cfx9vsfy5EZaID6XEeF2VxELct+8yfafSMAqFVifsq8QURA==
+
 get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
