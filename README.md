@@ -33,6 +33,12 @@ The average drone speed is 48–80 Km/hr.  Toy and racing drones are available o
 # Improvements
 
 * Look closer at the vue-mqtt library.  The message payload seems to be required to be a string.  Being able to use binary data would reduce the cost of communication further.
+* Better type checking throughout the system
+* Setup issues and branches to better manage the project.
+* Add more intelligence to the simulator to get more realistic geo-location and update frequency values
+* An improved GUI
+* Learn more about the requirements of the system to reduce assumptions
+* Enable and verify security settings
 
 # Running the System
 
@@ -46,20 +52,21 @@ Then run the image with a few arguments
 ```
 docker run -it -v ${PWD}:/code -p 8080:8080 drone-dashboard
 ```
+## Sending fake locations
+A second instance of the docker image can then be used to send an MQTT message from a client. Simply call the sendDroneLocation.js script with a correctly formatted drone location string.
+```
+docker run -it -v ${PWD}:/code drone-dashboard node sendDroneLocation.js '3,44.482948,-103.850380'
+```
+
+## Running a simulation
+The final way to the application is using a simulator.  This uses random number genaration for locations to send to the application to be displayed.  The random number generation is simple and not the best representation of actual data but it shows how the application handles a large number of drones.  A count of the desired number of drones can be passed into the script to gerenate more drones.
+```
+docker run -it -v ${PWD}:/code drone-dashboard bash simulator 10
+```
 
 This will get the project running in developer mode and allow it to be viewed on a local browser.  Additional commands can be ran by overriding the default Dockerfile command.
 
-### Compiles and minifies for production
-```
-docker run -it -v ${PWD}:/code -p 8080:8080 drone-dashboard yarn run build
-```
-
-### Run your tests
+### Run the tests
 ```
 docker run -it -v ${PWD}:/code -p 8080:8080 drone-dashboard yarn run test
-```
-
-### Lints and fixes files
-```
-docker run -it -v ${PWD}:/code -p 8080:8080 drone-dashboard yarn run lint
 ```

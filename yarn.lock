@@ -5072,7 +5072,7 @@ mqtt-packet@^5.6.0:
     process-nextick-args "^2.0.0"
     safe-buffer "^5.1.0"
 
-mqtt@^2.18.3:
+mqtt@^2.18.3, mqtt@^2.18.8:
   version "2.18.8"
   resolved "https://registry.yarnpkg.com/mqtt/-/mqtt-2.18.8.tgz#9d213ccab92151accfb21ee8c0860dc6866ab259"
   integrity sha512-3h6oHlPY/yWwtC2J3geraYRtVVoRM6wdI+uchF4nvSSafXPZnaKqF8xnX+S22SU/FcgEAgockVIlOaAX3fkMpA==

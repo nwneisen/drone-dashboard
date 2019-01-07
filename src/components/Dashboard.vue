@@ -1,7 +1,6 @@
 <template>
 
 <div>
-    <button @click="publishLocation">publishLocation</button>
     <table>
       <tr>
         <th>Drone</th>
@@ -28,9 +27,6 @@
     };
   },
   methods: {
-    publishLocation() {
-      this.$mqtt.publish('VueMqtt/publishLocation', '3,44.482948,-103.850380')
-    },
     getSpeed(distanceInKm) {
       const secondsInAnHour = 3600;
       return distanceInKm*secondsInAnHour;

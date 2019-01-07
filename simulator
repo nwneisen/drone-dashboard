@@ -1,0 +1,13 @@
+#!/bin/bash
+
+END=$@
+while true
+do
+    for ((i=1;i<=END;i++))
+    do
+        latitude=`awk -v min=-90 -v max=90 'BEGIN{srand(); print min+rand()*(max-min+1)}'`
+        longitude=`awk -v min=-180 -v max=180 'BEGIN{srand(); print min+rand()*(max-min+1)}'`
+        node sendDroneLocation.js $i","$latitude","$longitude
+    done
+    sleep 1
+done
