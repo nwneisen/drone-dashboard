@@ -27,10 +27,12 @@
     };
   },
   methods: {
+    // Gets speed in Km/hr assuming 1 second for the distance traveled
     getSpeedInKmPerHour(distanceInKm) {
       const secondsInAnHour = 3600;
       return distanceInKm*secondsInAnHour;
     },
+    // Determines if the drone should be flagged as idle
     getRowColor(idleSeconds) {
       const maxIdleSeconds = 10;
       if(idleSeconds >= maxIdleSeconds) {
@@ -40,6 +42,7 @@
 
       return "White";
     },
+    // Finds the amount of seconds the drone has been idle for
     getIdleSeconds(distanceInKm, idleSeconds) {
       const idleDistanceKm = 0.001;
       if(distanceInKm < idleDistanceKm) {
@@ -50,12 +53,12 @@
     }
   },
   mqtt: {
-    'VueMqtt/publishLocation' (data) {
-      
+    'VueMqtt/publishLocation' (data) {      
 
       var droneMessage = String.fromCharCode.apply(null, data).split(",");
 
-      // TODO Use a hashtable
+      // TODO Use a hashtable - standard javascript array indexing does not work with vue.js reactivity
+      
       // Check if the drone is already being displayed
       var i;
       for(i = 0; i < this.drones.length; i++) {
@@ -67,7 +70,6 @@
           var distanceInKm = this.$getDistanceBetween({latitude: this.drones[i].latitude, longitude: this.drones[i].longitude}, 
                                                       {latitude: droneMessage[1], longitude: droneMessage[2]});   
           
-
           // Update the drone's information
           this.drones[i].latitude = droneMessage[1];
           this.drones[i].longitude = droneMessage[2];

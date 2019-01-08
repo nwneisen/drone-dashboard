@@ -13,6 +13,7 @@ export default {
     Dashboard
   },
   mounted () {
+    // On startup, subscribe to the MQTT pattern
     this.$mqtt.subscribe('VueMqtt/#')
   }
 }
